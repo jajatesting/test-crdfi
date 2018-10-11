@@ -9,7 +9,7 @@ print (s3out)
 
 r53 = boto3.client('route53')
 responsezone = r53.create_hosted_zone(
-   Name='prbizit.org',
+   Name='some-domain',
    CallerReference='zone for crdfi'
     )
 
