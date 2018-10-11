@@ -1,9 +1,9 @@
 provider "aws" {
   region =  "${var.aws_region}"
 }
-resource "aws_key_pair" "auth" {
+resource "aws_key_pair" "aws" {
    key_name = "aws"
-   public_key = "<put your key here>"
+   public_key = "${var.aws_key_aws}"
 }
  # create a VPC to launch our instances into
 resource "aws_vpc" "default" {
@@ -32,6 +32,7 @@ data "aws_vpc" "default" {
       name   = "tag:Name"
       values = ["test-crdfi"]
    }
+   depends_on = ["aws_vpc.default"]
 }
 
 # subnets def
@@ -173,24 +174,29 @@ resource "aws_elb" "web" {
 #  key_name   = "${var.key_name}"
 #  public_key = "${file(var.public_key_path)}"
 #}
-
+resource "aws_key_pair" "ec2" {
+   key_name = "key"
+   public_key = "${var.aws_key_ec2}"
+}
 
 # Instance with all needed to web service
 # including user data script  userdata.tpl to collect from s3
-
 resource "aws_instance" "web" {
   # lookup for correct ami
   ami          = "ami-072508e91eeb423ef"
   # The name of our SSH keypair we created above.
-  key_name = "${aws_key_pair.auth.id}"
-
+  key_name = "${aws_key_pair.ec2.key_name}"
+  associate_public_ip_address = "true"
   connection {
     # The default username for our AMI
     user = "ubuntu"
 
     # The connection will use the local SSH agent for authentication.
   }
-
+  timeouts {
+    create = "60m"
+    delete = "60m"
+  }
   instance_type = "t2.micro"
   monitoring = "true"
   count             = "${var.az_count}"
