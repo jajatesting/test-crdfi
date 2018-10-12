@@ -222,6 +222,7 @@ resource "aws_route53_record" "www" {
     name                   = "${aws_elb.web.dns_name}"
     zone_id                = "${aws_elb.web.zone_id}"
     evaluate_target_health = true
+    ttl                    = "60"
   }
   depends_on = ["aws_instance.web", "aws_elb.web"]
 }
