@@ -240,6 +240,9 @@ resource "aws_launch_configuration" "nginx" {
 	name          = "web_config"
 	image_id = "ami-05d380e8adebba246"
 	instance_type = "t2.micro"
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -247,7 +250,7 @@ resource "aws_launch_configuration" "nginx" {
 resource "aws_autoscaling_policy" "asg_pol" {
   policy_type 		 = "TargetTrackingScaling"
   name                   = "web_asg_pol"
-  scaling_adjustment     = 4
+  scaling_adjustment     = 3
   adjustment_type     = "ExactCapacity"
   cooldown               = 300
   autoscaling_group_name = "${aws_autoscaling_group.web_nginx.name}"
@@ -271,6 +274,12 @@ resource "aws_autoscaling_group" "web_nginx" {
       default_result       = "CONTINUE"
       heartbeat_timeout    = 2000
       lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
+    }
+    initial_lifecycle_hook {
+      name                 = "death_cycle_web"
+      default_result       = "CONTINUE"
+      heartbeat_timeout    = 3600
+      lifecycle_transition = "autoscaling:EC2_INSTANCE_TERMINATING"
     }
    depends_on = ["aws_instance.web", "aws_elb.web", "aws_autoscaling_policy.asg_pol"]
 
