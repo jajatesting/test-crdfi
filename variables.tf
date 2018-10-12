@@ -9,11 +9,6 @@ DESCRIPTION
     ec2 = "~/proj/crdfi/final/key"
   }
 }
-variable "aws_key_aws" {
-   type = "string"
-   default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCk9ErETxaJhxdj75c/C+yNvSPCfYkYtz66iKACt+bBzKjEPMvEJsugYPbX+23sUExevoMLT/EO0Hcd3gZsJgrxPKsI+y/49iuhygLxjaCz2BxLqUmbqRvIDqZrydcGPyK/OWPhkEthnfiPrrquchKbgHs8ZCfrpkzoiy2ISMTt6Q== amihai@amihai-lptp"
-}
-
 
 variable "az_count" {
   description = "Number of AZs to cover in a given AWS region"
@@ -56,24 +51,4 @@ variable "az_numbers" {
     m = 13
     n = 14
   }
-}
-variable "aws_key_ec2" {
-  type  = "string"
-  default = <<EOF
-  -----BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQCk9ErETxaJhxdj75c/C+yNvSPCfYkYtz66iKACt+bBzKjEPMvE
-JsugYPbX+23sUExevoMLT/EO0Hcd3gZsJgrxPKsI+y/49iuhygLxjaCz2BxLqUmb
-qRvIDqZrydcGPyK/OWPhkEthnfiPrrquchKbgHs8ZCfrpkzoiy2ISMTt6QIDAQAB
-AoGAFHm6eimzC3k4XxBTfuD1CRcMRE0e4nGEmNTyv8OiIjZMUKeXR47lQdAnc+Hi
-4C2LfUs6qwHOU19vGccAlxYVz28FTXa6MvLLbEm3K6LwHtpSDsQUOIfeCBTx4JI0
-0/KkI6OyENvxo6p4ovha82w3+K2muMPO9SZv9ZL+JyOPGZ0CQQDTytGqzPOrQl6V
-sAxmlrbKCjTSSEO/0MuyYbdz52nPJEwtJ+gdJPs6lTRpHwuIvCso1y8juP6ESjQ8
-69M9ujU7AkEAx2Krz6hrgQau8yMdOg3NheA1TCojs5bT3FEeUg2AcmICJHF0Rdm4
-7Yb/ObcVlDuxhsTMQGkbGLlJcEiAFwYnKwJBALWvrxAEBCDtrbBhtzGmpyZJfSjL
-n3sExkm/tB307nspm0O9kUy3NeH6r1xiqoVhTvEZMDJH9+dKtOdyMuQoQpMCQQC9
-pmQoTFmdS78jM7Y8Hx7rhV0MylRVIVT5jgsaHw+bPRAum9/uBO86t5qSykvzSGhO
-+WgSqCcG+E8bR0rXG5orAkB8ZlcOryMaw/vfE1OFKupdCPOYe5MGCeHMJz7Jc6gS
-tXEUWa9nx+nS/ehxXZyWDnrRbZnBpHd5fNHQ1ZFYIBVw
------END RSA PRIVATE KEY-----
-EOF
 }

@@ -3,7 +3,7 @@ provider "aws" {
 }
 resource "aws_key_pair" "aws" {
    key_name = "aws"
-   public_key = "${var.aws_key_aws}"
+   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCk9ErETxaJhxdj75c/C+yNvSPCfYkYtz66iKACt+bBzKjEPMvEJsugYPbX+23sUExevoMLT/EO0Hcd3gZsJgrxPKsI+y/49iuhygLxjaCz2BxLqUmbqRvIDqZrydcGPyK/OWPhkEthnfiPrrquchKbgHs8ZCfrpkzoiy2ISMTt6Q== amihai@amihai-lptp"
 }
  # create a VPC to launch our instances into
 resource "aws_vpc" "default" {
@@ -170,14 +170,6 @@ resource "aws_elb" "web" {
   depends_on = ["aws_instance.web", "aws_subnet.main"]
 }
 
-#resource "aws_key_pair" "auth" {
-#  key_name   = "${var.key_name}"
-#  public_key = "${file(var.public_key_path)}"
-#}
-resource "aws_key_pair" "ec2" {
-   key_name = "key"
-   public_key = "${var.aws_key_ec2}"
-}
 
 # Instance with all needed to web service
 # including user data script  userdata.tpl to collect from s3
@@ -185,7 +177,7 @@ resource "aws_instance" "web" {
   # lookup for correct ami
   ami          = "ami-072508e91eeb423ef"
   # The name of our SSH keypair we created above.
-  key_name = "${aws_key_pair.ec2.key_name}"
+  key_name = "${aws_key_pair.aws.key_name}"
   associate_public_ip_address = "true"
   connection {
     # The default username for our AMI
@@ -206,12 +198,12 @@ resource "aws_instance" "web" {
   tags {
        name = "crdfi-test-origin"
   }
-   user_data = "${file("${path.module}/userdata.tpl")}"
+   #user_data = "${file("${path.module}/userdata.tpl")}"
    provisioner "remote-exec" {
      inline = [
        "sudo apt-get -y update",
-       "sudo apt-get -y install nginx",
-       "sudo service nginx start"
+       #"sudo apt-get -y install nginx",
+       #"sudo service nginx start"
        ]
     }
 }

@@ -10,6 +10,7 @@
 
 	1. amazone account preffered in eu-west-1 with ac2-full access + s3 full access + route53 full access
 	2. configure your account and region ( current file-set is designed for eu-west1)
+	3. generate sshkeygen -t rsa -b1024 , and assign it to main.tf the pub file update as valid key in your aws account
 	3. run the aws.py for starting proccess ,
 			it will create s3 bucket ("webpage-crdifi") and route53 zone, then it will download terreform and git src .
 			after that
