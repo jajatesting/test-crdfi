@@ -281,7 +281,7 @@ resource "aws_autoscaling_group" "web_nginx" {
       heartbeat_timeout    = 3600
       lifecycle_transition = "autoscaling:EC2_INSTANCE_TERMINATING"
     }
-   depends_on = ["aws_instance.web", "aws_elb.web", "aws_autoscaling_policy.asg_pol"]
+   depends_on = ["aws_instance.web", "aws_elb.web"]
 
 }
 
