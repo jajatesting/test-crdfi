@@ -9,6 +9,14 @@ DESCRIPTION
     ec2 = "~/proj/crdfi/final/key"
   }
 }
+<<<<<<< HEAD
+=======
+variable "aws_key_aws" {
+   type = "string"
+   
+}
+
+>>>>>>> 6e10df5c356bf5502db6707f83908f98bf5bc7e7
 
 variable "az_count" {
   description = "Number of AZs to cover in a given AWS region"
@@ -52,3 +60,12 @@ variable "az_numbers" {
     n = 14
   }
 }
+<<<<<<< HEAD
+=======
+variable "aws_key_ec2" {
+  type  = "string"
+  default = <<EOF
+  <PUT YOUR PEM KEY HERE>
+EOF
+}
+>>>>>>> 6e10df5c356bf5502db6707f83908f98bf5bc7e7

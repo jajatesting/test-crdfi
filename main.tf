@@ -70,20 +70,6 @@ resource "aws_route_table_association" "b" {
   route_table_id = "${aws_route_table.r.id}"
 }
 
-# Create a subnet to launch our instances into
-# resource "aws_subnet" "default" {
-#  vpc_id                  = "${aws_vpc.default.id}"
-#  availability_zone = "eu-west-1a"
-#  cidr_block              = "10.10.1.0/24"
-#  map_public_ip_on_launch = false
-#}
-
-#resource "aws_subnet" "secondary" {
-#  vpc_id                  = "${aws_vpc.default.id}"
-#  availability_zone = "eu-west-1b"
-#  cidr_block              = "10.10.2.0/24"
-#  map_public_ip_on_launch = false
-#}
 
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
@@ -262,7 +248,7 @@ resource "aws_autoscaling_group" "web_nginx" {
 
 #  filter {
 #    name   = "tag:Name"
-#    values = ["crdfi-test-origin"]
+#    values = ["sometagvalue"]
 #  }
 
 #}
