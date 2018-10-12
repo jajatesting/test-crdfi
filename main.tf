@@ -161,7 +161,7 @@ resource "aws_elb" "web" {
 # including user data script  userdata.tpl to collect from s3
 resource "aws_instance" "web" {
   # lookup for correct ami
-  ami          = "ami-072508e91eeb423ef"
+  ami          = "ami-05d380e8adebba246"
   # The name of our SSH keypair we created above.
   key_name = "${aws_key_pair.aws.key_name}"
   associate_public_ip_address = "true"
@@ -238,7 +238,7 @@ resource "aws_route53_record" "www" {
 
 resource "aws_launch_configuration" "nginx" {
 	name          = "web_config"
-	image_id = "ami-072508e91eeb423ef"
+	image_id = "ami-05d380e8adebba246"
 	instance_type = "t2.micro"
 }
 
