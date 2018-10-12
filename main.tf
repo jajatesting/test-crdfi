@@ -207,7 +207,7 @@ resource "aws_instance" "web" {
 #}
 
 # Create A route 53 'A' record for our web server and attach public ipaddr
-#resource "aws_route53_zone" "primary" {
+#resource "aws_zone" "primary" {
 #  name = "probizit.org"
 #}
 data "aws_route53_zone" "primary" {
