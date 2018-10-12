@@ -226,23 +226,6 @@ resource "aws_route53_record" "www" {
   depends_on = ["aws_instance.web", "aws_elb.web"]
 }
 
-resource "aws_autoscaling_group" "web_nginx" {
-  name                      = "web_nginx_asg"
-  availability_zones = ["eu-west-1a", "eu-west-1b"]
-  desired_capacity = 1
-  max_size = 3
-  min_size = 1
-  launch_configuration = "${aws_launch_configuration.nginx.id}"
-    initial_lifecycle_hook {
-      name                 = "life_cycle_web"
-      default_result       = "CONTINUE"
-      heartbeat_timeout    = 2000
-      lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
-    }
-   depends_on = ["aws_instance.web", "aws_elb.web"]
-
-}
-
 ###for future use ###
 #data "aws_instance" "web" {
 
@@ -274,6 +257,23 @@ resource "aws_autoscaling_policy" "asg_pol" {
   	}
   	target_value = 40.0
   }
+}
+
+resource "aws_autoscaling_group" "web_nginx" {
+  name                      = "web_nginx_asg"
+  availability_zones = ["eu-west-1a", "eu-west-1b"]
+  desired_capacity = 1
+  max_size = 3
+  min_size = 1
+  launch_configuration = "${aws_launch_configuration.nginx.id}"
+    initial_lifecycle_hook {
+      name                 = "life_cycle_web"
+      default_result       = "CONTINUE"
+      heartbeat_timeout    = 2000
+      lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
+    }
+   depends_on = ["aws_instance.web", "aws_elb.web"]
+
 }
 
 # Create Autoscaling group attachment
